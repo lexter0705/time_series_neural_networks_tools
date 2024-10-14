@@ -14,7 +14,7 @@ class DatasetSplitter(BaseSplitter):
         self.__settings = settings
         self.__result: Dataset | None = None
 
-    def __split_dataset_on_test_train(self, dataset):
+    def __split_dataset_on_test_train(self, dataset) -> (numpy.ndarray, numpy.ndarray):
         test_train_splitter = TestTrainSplitter(dataset, self.__settings.test_dataset_percent)
         test_train_splitter.split_dataset()
         dataset = test_train_splitter.get_prepared_dataset()

@@ -9,16 +9,16 @@ class YXSplitter(BaseSplitter):
     def __init__(self, main_dataset: numpy.ndarray, x_columns_id: list[int],
                  y_columns_id: list[int]):
         if not x_columns_id:
-            raise Exception("x_columns_id cant be empty")
+            raise ValueError("x_columns_id cant be empty")
 
         if not y_columns_id:
-            raise Exception("y_columns_id cant be empty")
+            raise ValueError("y_columns_id cant be empty")
 
         if not all([0 <= i < len(main_dataset) for i in x_columns_id]):
-            raise Exception("unexpected column in categorical_columns")
+            raise ValueError("unexpected column in categorical_columns")
 
         if not all([0 <= i < len(main_dataset) for i in y_columns_id]):
-            raise Exception("unexpected column in categorical_columns")
+            raise ValueError("unexpected column in categorical_columns")
 
         BaseSplitter.__init__(self, main_dataset)
         self.__x_columns_id = x_columns_id
@@ -57,7 +57,7 @@ class TestTrainSplitter(BaseSplitter):
         train, test = self.__split_test_train_dataset(self._get_main_dataset())
         self.result = Dataset(train, numpy.empty(0), test, numpy.empty(0))
 
-    def __split_test_train_dataset(self, dataset: numpy.ndarray):
+    def __split_test_train_dataset(self, dataset: numpy.ndarray) -> (numpy.ndarray, numpy.ndarray):
         deleted_length = len(dataset) * self.__test_dataset_percent
         deleted_length = round(deleted_length)
         train = dataset[0:len(dataset) - deleted_length]

@@ -50,8 +50,8 @@ class DataScalers:
         self.__x_scaler.fit(x_dataset)
         self.__y_scaler.fit(y_dataset)
 
-    def get_x_scaler(self):
+    def get_x_scaler(self) -> MinMaxScaler | ManyColumnsScaler:
         return self.__x_scaler
 
-    def get_y_scaler(self):
+    def get_y_scaler(self) -> MinMaxScaler | ManyColumnsScaler:
         return self.__y_scaler
